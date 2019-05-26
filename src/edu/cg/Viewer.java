@@ -74,35 +74,46 @@ public class Viewer implements GLEventListener {
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 	}
 
-	private void setupCamera(GL2 gl) {
-		// TODO: You should set up the camera by defining the view transformation.
-		// (Step 1) Calculate rotation matrix:
-		// Remember - You should use the field rotationMatrix to get the current
-		// rotation,
-		// and multiply it with the new rotation. At the end of this method,
-		// you should update the field rotationMatrix to the new rotation matrix - so
-		// that
-		// the rotation will be stored.
+	private Vec translatePointToVector(Point mousePoint){
+        double x = ( 2*mousePoint.getX() / this.canvasWidth ) - 1;
+        double y = 1 - (2 * mousePoint.getY() / this.canvasHeight );
 
-		// (Step 2) Define the zoom transformation. In this exercise, the zoom is
-		// performed by translating
-		// the whole scene (moving it away/closer to the camera). Use the field 'zoom'
-		// as the number
-		// number of units that you should translate your scene by.
+        //calculate z value on sphere
+        double z = 0;
+        double root = 2 - (Math.pow(x, 2) + Math.pow(y, 2) );
+        if ( root >= 0) {
+            z = Math.sqrt(root);
+        }
+        else{
+            z = 0.0;
+        }
+        return new Vec (x, y, z);
+    }
 
-		// (Step 3) Combine the zoom and rotation transformation and define the final
-		// view transformation.
+    private void setupCamera(GL2 gl) {
+        gl.glLoadIdentity();
+        if (mouseFrom != null && mouseTo != null) {
+            Vec mouseToVec = translatePointToVector(mouseTo).normalize();
+            Vec	mouseFromVec = translatePointToVector(mouseFrom).normalize();
+            Vec rotAxis = mouseFromVec.cross(mouseToVec).normalize();
+            if (rotAxis.isFinite()) {
+                double alpha = Math.toDegrees( Math.acos(mouseFromVec.dot(mouseToVec)));
+                if ( !(Double.isFinite(alpha)) ) {
+                    alpha = 0;
+                }
+                gl.glRotated(alpha, rotAxis.x, rotAxis.y, rotAxis.z);
+            }
+        }
 
-		// Note: You should reset the ModelView matrix to the identity between the
-		// steps.
-		// This way you can perform matrix multiplication using OpenGL (See the
-		// recitation slides)
-		//
-		// We should have already changed the point of view, now set these to null
-		// so we don't change it again on the next redraw.
-		mouseFrom = null;
-		mouseTo = null;
-	}
+        gl.glMultMatrixd(this.rotationMatrix, 0);
+        gl.glGetDoublev(2982, this.rotationMatrix, 0);
+        gl.glLoadIdentity();
+        gl.glTranslated(0.0, 0.0, -1.2);
+        gl.glTranslated(0.0, 0.0, - this.zoom);
+        gl.glMultMatrixd(this.rotationMatrix, 0);
+        mouseFrom = null;
+        mouseTo = null;
+    }
 
 	private void setupLights(GL2 gl) {
 		// For this exercise we don't require lighting.
@@ -140,9 +151,17 @@ public class Viewer implements GLEventListener {
 	}
 
 	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-		// TODO: Perform the perspective projection here as we learned in class.
-	}
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+        GL2 gl = drawable.getGL().getGL2();
+
+        this.canvasWidth = width;
+        this.canvasHeight = height;
+
+        gl.glMatrixMode(GL2.GL_PROJECTION);
+        gl.glLoadIdentity();
+
+        gl.glFrustum(-0.1, 0.1, -0.1 *height / width, 0.1 * height / width, 0.1, 1000.0);
+    }
 
 	/**
 	 * Rotate model in a way that corresponds with a virtual trackball. This
@@ -162,7 +181,6 @@ public class Viewer implements GLEventListener {
 			mouseFrom = from;
 		mouseTo = to;
 		glPanel.repaint();
-
 	}
 
 	/**

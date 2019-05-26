@@ -71,7 +71,8 @@ public class Main {
 				System.exit(0);
 			}
 		});
-		
+		SkewedBox box = new SkewedBox();
+
 		canvas.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -149,13 +150,13 @@ public class Main {
 				canvas.repaint();
 			}
 		});
-		
-		// Show frame
+
+	// Show frame
 		canvas.setFocusable(true);
 		canvas.requestFocus();
 		frame.setVisible(true);
 		canvas.repaint();
-	}
+}
 	
 	/**
 	 * Return the next model in the array
