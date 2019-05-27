@@ -95,16 +95,15 @@ public class Viewer implements GLEventListener {
         if (mouseFrom != null && mouseTo != null) {
             Vec mouseToVec = translatePointToVector(mouseTo).normalize();
             Vec	mouseFromVec = translatePointToVector(mouseFrom).normalize();
-            Vec rotAxis = mouseFromVec.cross(mouseToVec).normalize();
-            if (rotAxis.isFinite()) {
+            Vec rotationAxis = mouseFromVec.cross(mouseToVec).normalize();
+            if (rotationAxis.isFinite()) {
                 double alpha = Math.toDegrees( Math.acos(mouseFromVec.dot(mouseToVec)));
                 if ( !(Double.isFinite(alpha)) ) {
                     alpha = 0;
                 }
-                gl.glRotated(alpha, rotAxis.x, rotAxis.y, rotAxis.z);
+                gl.glRotated(alpha, rotationAxis.x, rotationAxis.y, rotationAxis.z);
             }
         }
-
         gl.glMultMatrixd(this.rotationMatrix, 0);
         gl.glGetDoublev(2982, this.rotationMatrix, 0);
         gl.glLoadIdentity();

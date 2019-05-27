@@ -16,7 +16,7 @@ public class Center implements IRenderable {
 	private SkewedBox frontBox = new SkewedBox(Specification.C_FRONT_LENGTH,Specification.C_FRONT_HEIGHT_1,Specification.C_FRONT_HEIGHT_2,Specification.C_FRONT_DEPTH_1,Specification.C_FRONT_DEPTH_2);
 	// sideBox is used to render both the right-side and left-side of the center of the body.
 	private SkewedBox sideBox = new SkewedBox(Specification.C_SIDE_LENGTH,Specification.C_SIDE_HEIGHT_1,Specification.C_SIDE_HEIGHT_2,Specification.C_SIDE_DEPTH_1,Specification.C_SIDE_DEPTH_2);
-	
+
 	@Override
 	public void render(GL2 gl) {
 		// TODO: Render the center of the car.
