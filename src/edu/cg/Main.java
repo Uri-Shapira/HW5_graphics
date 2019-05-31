@@ -25,14 +25,13 @@ import edu.cg.models.Car.Front;
 import edu.cg.models.Car.PairOfWheels;
 import edu.cg.models.Car.Spolier;
 import edu.cg.models.Car.F1Car;
+import edu.cg.models.Car.Wheel;
+import edu.cg.models.SkewedBox;
 
 
 public class Main {
-	
-	// TODO: Incrementally add new models to the models array.
-	//       When the program is started, the first model in the array is rendered.
-	//       Later, pressing 'm' on the keyboard will render the next model in the array.
-	static IRenderable[] models = {new Empty()};
+
+	static IRenderable[] models = {new SkewedBox(), new Wheel(),new PairOfWheels(),new Spolier(), new Back(), new Center(), new Front(), new F1Car()};
 	static Point prevMouse;
 	static int currentModel;
 	static Frame frame;

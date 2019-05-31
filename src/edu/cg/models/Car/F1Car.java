@@ -10,10 +10,22 @@ import edu.cg.models.IRenderable;
  */
 public class F1Car implements IRenderable {
 
+	private Back back = new Back();
+	private Center center = new Center();
+	private Front front = new Front();
 	@Override
 	public void render(GL2 gl) {
-		// TODO: Render the whole car. 
-		//       Here You should only render the three parts: back, center and front.
+		gl.glPushMatrix();
+		gl.glTranslated(- Specification.C_BASE_LENGTH / 2.0 - Specification.B_LENGTH / 2.0, 0.0, 0.0);
+		back.render(gl);
+		gl.glPopMatrix();
+
+		center.render(gl);
+
+		gl.glPushMatrix();
+		gl.glTranslated(Specification.C_BASE_LENGTH / 2.0 + Specification.F_FRONT_LENGTH / 2.0, 0.0, 0.0);
+		this.front.render(gl);
+		gl.glPopMatrix();
 	}
 
 	@Override
