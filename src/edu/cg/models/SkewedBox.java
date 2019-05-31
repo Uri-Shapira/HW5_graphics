@@ -25,11 +25,8 @@ public class SkewedBox implements IRenderable {
 
 	@Override
 	public void render(GL2 gl) {
-
-		Materials.SetRedMetalMaterial(gl);
-
 		//Big Back
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(-this.length / 2.0, 0.0, -this.depth1 / 2.0);
 		gl.glVertex3d(-this.length / 2.0, 0.0, this.depth1 / 2.0);
 		gl.glVertex3d(-this.length / 2.0, this.height1, this.depth1 / 2.0);
@@ -37,7 +34,7 @@ public class SkewedBox implements IRenderable {
 		gl.glEnd();
 
 		//small front
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(this.length / 2.0, 0.0, this.depth2 / 2.0);
 		gl.glVertex3d(this.length / 2.0, 0.0, -this.depth2 / 2.0);
 		gl.glVertex3d(this.length / 2.0, this.height2, -this.depth2 / 2.0);
@@ -45,7 +42,7 @@ public class SkewedBox implements IRenderable {
 		gl.glEnd();
 
 		// side top
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(-this.length / 2.0, this.height1, this.depth1 / 2.0);
 		gl.glVertex3d(this.length / 2.0, this.height2, this.depth2 / 2.0);
 		gl.glVertex3d(this.length / 2.0, this.height2, -this.depth2 / 2.0);
@@ -53,7 +50,7 @@ public class SkewedBox implements IRenderable {
 		gl.glEnd();
 
 		//side bottom
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(-this.length / 2.0, 0.0, this.depth1 / 2.0);
 		gl.glVertex3d(-this.length / 2.0, 0.0, -this.depth1 / 2.0);
 		gl.glVertex3d(this.length / 2.0, 0.0, -this.depth2 / 2.0);
@@ -61,7 +58,7 @@ public class SkewedBox implements IRenderable {
 		gl.glEnd();
 
 		//side Z
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(-this.length / 2.0, this.height1, this.depth1 / 2.0);
 		gl.glVertex3d(-this.length / 2.0, 0.0, this.depth1 / 2.0);
 		gl.glVertex3d(this.length / 2.0, 0.0, this.depth2 / 2.0);
@@ -69,7 +66,7 @@ public class SkewedBox implements IRenderable {
 		gl.glEnd();
 
 		//side -Z
-		gl.glBegin(7);
+		gl.glBegin(GL2.GL_QUADS);
 		gl.glVertex3d(-this.length / 2.0, 0.0, -this.depth1 / 2.0);
 		gl.glVertex3d(-this.length / 2.0, this.height1, -this.depth1 / 2.0);
 		gl.glVertex3d(this.length / 2.0, this.height2, -this.depth2 / 2.0);

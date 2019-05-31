@@ -6,7 +6,6 @@ import edu.cg.models.IRenderable;
 import edu.cg.models.SkewedBox;
 
 public class Center implements IRenderable {
-	// TODO: The following elements are used to build the center of the body.
 	// bodyBase is the black base of the center.
 	private SkewedBox bodyBase = new SkewedBox(Specification.C_BASE_LENGTH, Specification.C_BASE_HEIGHT, Specification.C_BASE_HEIGHT, Specification.C_BASE_DEPTH, Specification.C_BASE_DEPTH);
 	// backSeatBox is the back seat of the center.
@@ -19,7 +18,39 @@ public class Center implements IRenderable {
 
 	@Override
 	public void render(GL2 gl) {
-		// TODO: Render the center of the car.
+		Materials.SetBlackMetalMaterial(gl);
+		bodyBase.render(gl);
+
+		gl.glPushMatrix();
+		gl.glTranslated(Specification.C_BACK_LENGTH / 2.0 - Specification.C_BASE_LENGTH / 2.0 + Specification.C_FRONT_LENGTH, Specification.C_BASE_HEIGHT, 0.0);
+		this.backSeatBox.render(gl);
+		gl.glPopMatrix();
+
+		Materials.SetRedMetalMaterial(gl);
+
+		gl.glPushMatrix();
+		gl.glTranslated(Specification.C_BASE_LENGTH / 2.0 - Specification.C_FRONT_LENGTH / 2.0, Specification.C_BASE_HEIGHT, 0.0);
+		this.frontBox.render(gl);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(Specification.C_FRONT_LENGTH / 2.0 - Specification.C_BASE_LENGTH / 2.0, Specification.C_BASE_HEIGHT, 0.0);
+		gl.glRotated(180.0, 0.0, 1.0, 0.0);
+		frontBox.render(gl);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0, Specification.C_BASE_HEIGHT, Specification.C_BASE_DEPTH / 2.0 - Specification.C_SIDE_LENGTH / 2.0);
+		gl.glRotated(90.0, 0.0, 1.0, 0.0);
+		sideBox.render(gl);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0, Specification.C_BASE_HEIGHT, Specification.C_SIDE_LENGTH / 2.0 - Specification.C_BASE_DEPTH / 2.0);
+		gl.glRotated(270.0, 0.0, 1.0, 0.0);
+		sideBox.render(gl);
+		gl.glPopMatrix();
+
 	}
 
 	@Override

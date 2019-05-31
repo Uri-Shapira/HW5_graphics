@@ -7,12 +7,30 @@ import com.jogamp.opengl.glu.GLUquadric;
 import edu.cg.models.IRenderable;
 
 public class PairOfWheels implements IRenderable {
-	// TODO: Use the wheel field to render the two wheels.
+
 	private final Wheel wheel = new Wheel();
+	private double z_posit = (Specification.PAIR_OF_WHEELS_ROD_DEPTH + Specification.TIRE_DEPTH) / 2.0;
 	
 	@Override
 	public void render(GL2 gl) {
-		// TODO: Render the pair of wheels.
+		GLU glu = new GLU();
+		GLUquadric quad = glu.gluNewQuadric();
+		Materials.SetDarkGreyMetalMaterial(gl);
+		gl.glPushMatrix();
+		gl.glTranslated(0.0, 0.0, z_posit);
+		wheel.render(gl);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0, 0.0, -z_posit);
+		wheel.render(gl);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0, 0.0, - Specification.PAIR_OF_WHEELS_ROD_DEPTH / 2.0);
+		glu.gluCylinder(quad, Specification.PAIR_OF_WHEELS_ROD_RADIUS, Specification.PAIR_OF_WHEELS_ROD_RADIUS,
+				Specification.PAIR_OF_WHEELS_ROD_DEPTH, 20, 1);
+		gl.glPopMatrix();
 	}
 
 	@Override

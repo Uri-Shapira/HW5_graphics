@@ -8,10 +8,41 @@ import edu.cg.models.IRenderable;
 
 public class Wheel implements IRenderable {
 
+	private void drawRim(GL2 gl){
+		for(int i = 0; i < 20; i++){
+			gl.glBegin(3);
+			gl.glVertex3d(0.0,0.0,0.0);
+			gl.glVertex3d(0.0,0.0,0.0);
+			gl.glVertex3d(0.0,0.0,0.0);
+			gl.glEnd();
+		}
+	}
+
 	@Override
 	public void render(GL2 gl) {
-		// TODO: Render the wheel. 
-		// The wheel should be in the center relative to its local coordinate system.
+		GLU glu = new GLU();
+		GLUquadric quad = glu.gluNewQuadric();
+		Materials.setMaterialRims(gl);
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0,0.0,Specification.TIRE_DEPTH / 2);
+		glu.gluDisk(quad, 0.0D, Specification.TIRE_DEPTH / 1.2, 20, 1);
+		gl.glRotated(180.0, 1.0, 0.0, 0.0);
+		glu.gluDisk(quad, Specification.TIRE_RADIUS / 1.2, Specification.TIRE_RADIUS, 20, 1);
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0.0,0.0,-Specification.TIRE_DEPTH / 2);
+		glu.gluDisk(quad, 0.0D, Specification.TIRE_DEPTH / 1.2, 20, 1);
+		gl.glRotated(180.0, 1.0, 0.0, 0.0);
+		glu.gluDisk(quad, Specification.TIRE_RADIUS / 1.2, Specification.TIRE_RADIUS, 20, 1);
+		gl.glPopMatrix();
+
+		Materials.setMaterialTire(gl);
+		gl.glPushMatrix();
+		gl.glTranslated(0.0D, 0.0D, - Specification.TIRE_DEPTH / 2.0);
+		glu.gluCylinder(quad, Specification.TIRE_RADIUS, Specification.TIRE_RADIUS, Specification.TIRE_DEPTH, 20, 1);
+		gl.glPopMatrix();
 	}
 
 	@Override

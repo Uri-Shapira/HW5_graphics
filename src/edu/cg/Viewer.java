@@ -160,7 +160,8 @@ public class Viewer implements GLEventListener {
         gl.glLoadIdentity();
 
         gl.glFrustum(-0.1, 0.1, -0.1 *height / width, 0.1 * height / width, 0.1, 1000.0);
-    }
+		gl.glMatrixMode(GL2.GL_MODELVIEW);
+	}
 
 	/**
 	 * Rotate model in a way that corresponds with a virtual trackball. This
