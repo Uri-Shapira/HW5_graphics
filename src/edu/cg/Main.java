@@ -56,7 +56,7 @@ public class Main {
 		final GLJPanel canvas = new GLJPanel(caps);
 		final Viewer viewer = new Viewer(canvas);
 		viewer.setModel(nextModel());
-		
+
 		frame.setSize(500, 500);
 		frame.setLayout(new BorderLayout());		
 		frame.add(canvas, BorderLayout.CENTER);

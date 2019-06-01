@@ -25,22 +25,21 @@ public class Wheel implements IRenderable {
 		Materials.setMaterialRims(gl);
 
 		gl.glPushMatrix();
-		gl.glTranslated(0.0,0.0,Specification.TIRE_DEPTH / 2);
-		glu.gluDisk(quad, 0.0D, Specification.TIRE_DEPTH / 1.2, 20, 1);
-		gl.glRotated(180.0, 1.0, 0.0, 0.0);
-		glu.gluDisk(quad, Specification.TIRE_RADIUS / 1.2, Specification.TIRE_RADIUS, 20, 1);
+		gl.glTranslated(0.0, 0.0, Specification.TIRE_DEPTH / 2.0);
+		glu.gluDisk(quad,Specification.TIRE_RADIUS / 1.5, Specification.TIRE_RADIUS,20, 1);
+		glu.gluDisk(quad, 0.0, Specification.TIRE_RADIUS / 1.5, 20, 1);
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
-		gl.glTranslated(0.0,0.0,-Specification.TIRE_DEPTH / 2);
-		glu.gluDisk(quad, 0.0D, Specification.TIRE_DEPTH / 1.2, 20, 1);
+		gl.glTranslated(0.0,0.0,-Specification.TIRE_DEPTH / 2.0);
 		gl.glRotated(180.0, 1.0, 0.0, 0.0);
-		glu.gluDisk(quad, Specification.TIRE_RADIUS / 1.2, Specification.TIRE_RADIUS, 20, 1);
+		glu.gluDisk(quad, 0.0, Specification.TIRE_RADIUS / 1.5, 20, 1);
+		glu.gluDisk(quad, Specification.TIRE_RADIUS / 1.5, Specification.TIRE_RADIUS, 20, 1);
 		gl.glPopMatrix();
 
 		Materials.setMaterialTire(gl);
 		gl.glPushMatrix();
-		gl.glTranslated(0.0D, 0.0D, - Specification.TIRE_DEPTH / 2.0);
+		gl.glTranslated(0.0, 0.0, - Specification.TIRE_DEPTH / 2.0);
 		glu.gluCylinder(quad, Specification.TIRE_RADIUS, Specification.TIRE_RADIUS, Specification.TIRE_DEPTH, 20, 1);
 		gl.glPopMatrix();
 	}

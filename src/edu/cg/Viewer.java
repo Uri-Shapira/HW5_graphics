@@ -75,17 +75,12 @@ public class Viewer implements GLEventListener {
 	}
 
 	private Vec translatePointToVector(Point mousePoint){
-        double x = ( 2*mousePoint.getX() / this.canvasWidth ) - 1;
-        double y = 1 - (2 * mousePoint.getY() / this.canvasHeight );
-
-        //calculate z value on sphere
-        double z = 0;
+        double x = 2.0 *mousePoint.getX() / (double)this.canvasWidth - 1;
+        double y = 1.0 - (2.0 * mousePoint.getY() / (double)this.canvasHeight );
+        double z = 0.0;
         double root = 2 - (Math.pow(x, 2) + Math.pow(y, 2) );
         if ( root >= 0) {
             z = Math.sqrt(root);
-        }
-        else{
-            z = 0.0;
         }
         return new Vec (x, y, z);
     }
@@ -101,15 +96,14 @@ public class Viewer implements GLEventListener {
                 if ( !(Double.isFinite(alpha)) ) {
                     alpha = 0;
                 }
-                gl.glRotated(alpha, rotationAxis.x, rotationAxis.y, rotationAxis.z);
+                gl.glRotated(alpha, (double)rotationAxis.x, (double)rotationAxis.y, (double)rotationAxis.z);
             }
         }
-        gl.glMultMatrixd(this.rotationMatrix, 0);
-        gl.glGetDoublev(2982, this.rotationMatrix, 0);
+        gl.glMultMatrixd(rotationMatrix, 0);
+        gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, this.rotationMatrix, 0);
         gl.glLoadIdentity();
-        gl.glTranslated(0.0, 0.0, -1.2);
-        gl.glTranslated(0.0, 0.0, - this.zoom);
-        gl.glMultMatrixd(this.rotationMatrix, 0);
+        gl.glTranslated(0.0, 0.0, - this.zoom - 1.0);
+        gl.glMultMatrixd(rotationMatrix, 0);
         mouseFrom = null;
         mouseTo = null;
     }
